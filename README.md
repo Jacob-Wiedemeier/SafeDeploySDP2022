@@ -4,7 +4,7 @@
 There are two services, hello and loadgen. Each runs in its own isolated containers, and 
 are linked only by network. We use containers because it gives reproducible builds.
 
-Run directly using Docker containers and the docker compose plugin. It: 
+Run directly using Docker containers and the docker compose plugin. As defined by `docker-compose.yaml`, it: 
 * builds the images, 
 * creates a container for each image, 
 * links containers by network, 
