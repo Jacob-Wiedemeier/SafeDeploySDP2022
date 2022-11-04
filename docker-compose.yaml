@@ -6,10 +6,16 @@ version: "2"
 services:
   hello: # host is hello
     build: src/helloservice
-    image: helloapp:latest
+    image: helloapp:v1
     ports:
       - "8080:8080"
+    labels:
+      kompose.image-pull-policy: "Never"
 
   loadgen: # load generator
     build: src/loadgeneratorservice
-    image: loadgenapp:latest
+    image: loadgenapp:v1
+    ports:
+      - "8081:8081"
+    labels:
+      kompose.image-pull-policy: "Never"

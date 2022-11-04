@@ -1,7 +1,14 @@
 # Hello Application example
 
-Run directly using Docker containers and the docker compose plugin.
-It builds the images, links containers by network, and starts all containers.
+## Run with Docker directly
+There are two services, hello and loadgen. Each runs in its own consistent and isolated containers, and 
+are linked only by network.
+
+Run directly using Docker containers and the docker compose plugin. It: 
+* builds the images, 
+* creates a container for each image, 
+* links containers by network, 
+* and starts all containers.
 
 ```
 docker compose up --build --remove-orphans
@@ -17,7 +24,53 @@ cd $PROJECT/src/loadgeneratorservice
 docker build -t loadgenapp ./
 ``` -->
 
+## Run in a cluster
+We might want to deploy our containers to a cluster.
+We use kubectl to interact with our cluster.
+Our docker-compse.yaml is translated into a kubectl compatible file.
+A cluster has resources that are grouped into namespaces. 
+* We run our application resources in the default namespace
+* Our application is profiled by Pixie resources in the pl namespace
 
+Spin up your cluster, and clear existing pods and services,
+```
+minikube stop --all && minikube delete --all
+minikube start --driver=kvm2 --cni=flannel --cpus=4 --memory=4000
+kubectl get namespace
+kubectl -n "default" delete pod,svc --all --wait=false # on namespace 'default', delete pods and services
+kubectl get pods && kubectl get services
+eval $(minikube docker-env) # exposes registry for minikube to access
+```
+
+Install kompose,
+```
+curl -L https://github.com/kubernetes/kompose/releases/latest/download/kompose-linux-amd64 -o kompose
+chmod +x kompose
+```
+
+Build images so that they are available to the cluster, run kompose, and apply it,
+```
+./kompose convert --out kubectl-kompose.yaml --build local
+kubectl apply -f kubectl-kompose.yaml
+kubectl get pods            # helloservice and loadgenservice should be Running
+minikube service hello      # peek at the hello service
+kubectl describe svc hello  # peek at the hello service
+minikube ssh && htop        # peek at CPU and memory usage
+```
+
+Install Pixie on the cluster,
+```
+~/bin/px deploy --cluster_name minikube --pem_memory_limit 1Gi
+```
+
+After selecting your cluster, and with the px/cluster script, see the Nodes panel and click "minikube".
+Scroll to the bottom to see the CPU Flamegraph.
+
+Then clean up,
+```
+minikube stop --all
+minikube delete --all
+```
 
 [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/GoogleCloudPlatform/kubernetes-engine-samples&cloudshell_tutorial=cloudshell/tutorial.md&cloudshell_workspace=hello-app)
 
