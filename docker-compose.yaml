@@ -1,0 +1,15 @@
+# Compose is used to link networks between 
+# the different services (each service is in its own container)
+
+version: "2"
+
+services:
+  hello: # host is hello
+    build: src/helloservice
+    image: helloapp:latest
+    ports:
+      - "8080:8080"
+
+  loadgen: # load generator
+    build: src/loadgeneratorservice
+    image: loadgenapp:latest
