@@ -1,4 +1,7 @@
-# Hello Application example
+# SafeDeploySDP2022
+Repository for the SafeDeploy Senior Design Project in Fall 2022
+
+Hello Application example
 
 ## Run with Docker directly
 There are two services, hello and loadgen. Each runs in its own isolated containers, and 
@@ -12,7 +15,7 @@ Run directly using Docker containers and the docker compose plugin. As defined b
 
 ```
 docker compose up --build --remove-orphans
-# Ctrl+C to stop, and check docker compose images
+# Ctrl+C to stop, and check docker images
 ```
 
 (This should be equivalent to `docker compose build && docker compose up --remove-orphans`)
