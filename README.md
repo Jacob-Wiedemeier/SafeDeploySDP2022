@@ -1,8 +1,8 @@
 # Hello Application example
 
 ## Run with Docker directly
-There are two services, hello and loadgen. Each runs in its own consistent and isolated containers, and 
-are linked only by network.
+There are two services, hello and loadgen. Each runs in its own isolated containers, and 
+are linked only by network. We use containers because it gives reproducible builds.
 
 Run directly using Docker containers and the docker compose plugin. It: 
 * builds the images, 
@@ -14,6 +14,8 @@ Run directly using Docker containers and the docker compose plugin. It:
 docker compose up --build --remove-orphans
 # Ctrl+C to stop, and check docker compose images
 ```
+
+(This should be equivalent to `docker compose build && docker compose up --remove-orphans`)
 
 <!-- Build the containers individually,
 ```
@@ -72,6 +74,7 @@ minikube stop --all
 minikube delete --all
 ```
 
+<!-- 
 [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/GoogleCloudPlatform/kubernetes-engine-samples&cloudshell_tutorial=cloudshell/tutorial.md&cloudshell_workspace=hello-app)
 
 This example shows how to build and deploy a containerized Go web server
@@ -97,4 +100,4 @@ This example is used in many official/unofficial tutorials, some of them
 include:
 - [Kubernetes Engine Quickstart](https://cloud.google.com/kubernetes-engine/docs/quickstart)
 - [Kubernetes Engine - Deploying a containerized web application](https://cloud.google.com/kubernetes-engine/docs/tutorials/hello-app) tutorial
-- [Kubernetes Engine - Setting up HTTP Load Balancing](https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer) tutorial
+- [Kubernetes Engine - Setting up HTTP Load Balancing](https://cloud.google.com/kubernetes-engine/docs/tutorials/http-balancer) tutorial -->
