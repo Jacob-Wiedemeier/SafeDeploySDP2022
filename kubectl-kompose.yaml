@@ -5,7 +5,6 @@ items:
     metadata:
       annotations:
         kompose.cmd: ./kompose convert --out kubectl-kompose.yaml --build local
-        kompose.image-pull-policy: Never
         kompose.version: 1.26.1 (a9d05d509)
       creationTimestamp: null
       labels:
@@ -25,7 +24,6 @@ items:
     metadata:
       annotations:
         kompose.cmd: ./kompose convert --out kubectl-kompose.yaml --build local
-        kompose.image-pull-policy: Never
         kompose.version: 1.26.1 (a9d05d509)
       creationTimestamp: null
       labels:
@@ -45,7 +43,6 @@ items:
     metadata:
       annotations:
         kompose.cmd: ./kompose convert --out kubectl-kompose.yaml --build local
-        kompose.image-pull-policy: Never
         kompose.version: 1.26.1 (a9d05d509)
       creationTimestamp: null
       labels:
@@ -61,15 +58,13 @@ items:
         metadata:
           annotations:
             kompose.cmd: ./kompose convert --out kubectl-kompose.yaml --build local
-            kompose.image-pull-policy: Never
             kompose.version: 1.26.1 (a9d05d509)
           creationTimestamp: null
           labels:
             io.kompose.service: hello
         spec:
           containers:
-            - image: helloapp:v1
-              imagePullPolicy: Never
+            - image: us-central1-docker.pkg.dev/pixie2022f/hellorepo/helloapp:v1
               name: hello
               ports:
                 - containerPort: 8080
@@ -81,7 +76,6 @@ items:
     metadata:
       annotations:
         kompose.cmd: ./kompose convert --out kubectl-kompose.yaml --build local
-        kompose.image-pull-policy: Never
         kompose.version: 1.26.1 (a9d05d509)
       creationTimestamp: null
       labels:
@@ -97,15 +91,13 @@ items:
         metadata:
           annotations:
             kompose.cmd: ./kompose convert --out kubectl-kompose.yaml --build local
-            kompose.image-pull-policy: Never
             kompose.version: 1.26.1 (a9d05d509)
           creationTimestamp: null
           labels:
             io.kompose.service: loadgen
         spec:
           containers:
-            - image: loadgenapp:v1
-              imagePullPolicy: Never
+            - image: us-central1-docker.pkg.dev/pixie2022f/hellorepo/loadgenapp:v1
               name: loadgen
               ports:
                 - containerPort: 8081

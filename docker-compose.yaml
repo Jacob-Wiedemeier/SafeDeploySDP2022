@@ -6,16 +6,12 @@ version: "2"
 services:
   hello: # host is hello
     build: src/helloservice
-    image: helloapp:v1
+    image: us-central1-docker.pkg.dev/pixie2022f/hellorepo/helloapp:v1
     ports:
       - "8080:8080"
-    labels:
-      kompose.image-pull-policy: "Never"
 
   loadgen: # load generator
     build: src/loadgeneratorservice
-    image: loadgenapp:v1
+    image: us-central1-docker.pkg.dev/pixie2022f/hellorepo/loadgenapp:v1
     ports:
       - "8081:8081"
-    labels:
-      kompose.image-pull-policy: "Never"
