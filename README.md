@@ -77,6 +77,49 @@ minikube stop --all
 minikube delete --all
 ```
 
+## Run on Google Cloud
+
+Define the environment variables,
+```
+LOCATION="us-central1"
+REPO="hellorepo"
+PROJECT_ID="pixie2022f"
+```
+
+Update the docker-compose.yaml as needed
+```
+vim docker-compose.yaml
+```
+
+Create the repo for pushing images
+```
+gcloud auth configure-docker "$LOCATION-docker.pkg.dev"
+gcloud artifacts repositories create $REPO \
+   --repository-format=docker \
+   --location=$LOCATION \
+   --description="Docker repository"
+gcloud artifacts list
+```
+
+Build the images and push it to the artifact repository
+```
+docker compose build && docker images
+docker compose push
+```
+
+Run on Google Cloud cluster,
+```
+kubectl delete all --all -n default
+./kompose convert --out kubectl-kompose.yaml --build local
+kubectl apply -f kubectl-kompose.yaml
+kubectl get pods # is Running
+```
+
+Then deploy pixie on top,
+```
+~/bin/px deploy
+```
+
 <!-- 
 [![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?cloudshell_git_repo=https://github.com/GoogleCloudPlatform/kubernetes-engine-samples&cloudshell_tutorial=cloudshell/tutorial.md&cloudshell_workspace=hello-app)
 
